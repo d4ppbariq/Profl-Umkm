@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState, useEffect, use } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
@@ -36,8 +36,8 @@ interface UMKM {
   gambar: Gambar[]
 }
 
-export default function EditUMKMPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = use(params)
+export default function EditUMKMPage({ params }: { params: { id: string } }) {
+  const { id } = params
   const router = useRouter()
 
   const { data: umkm, mutate } = useSWR<UMKM>(`/api/umkm/${id}`, fetcher)
