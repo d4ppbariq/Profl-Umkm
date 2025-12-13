@@ -23,12 +23,14 @@ export function Hero() {
           </p>
 
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Link
-              href="/artikel/sertifikat-tanah"
+            <a
+              href="https://tasikmalaya.inews.id/read/353964/300-pelaku-umkm-desa-cikupa-tasikmalaya-dapat-sertifikat-hak-atas-tanah-dari-disperindag-dan-bpn"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex h-12 items-center justify-center rounded-lg bg-primary px-8 text-base font-medium text-primary-foreground shadow-lg shadow-primary/25 transition-all hover:bg-accent hover:shadow-xl hover:shadow-primary/30"
             >
               Baca Selengkapnya
-            </Link>
+            </a>
             <Link
               href="/umkm"
               className="inline-flex h-12 items-center justify-center rounded-lg border-2 border-primary bg-transparent px-8 text-base font-medium text-primary transition-colors hover:bg-primary/5"
