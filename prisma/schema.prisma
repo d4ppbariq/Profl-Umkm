@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DATABASE_URL_UNPOOLED")
+}
+
+enum Role {
+  SUPER_ADMIN
+  ADMIN
+}
+
+model Pengguna {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  nama      String
+  role      Role     @default(ADMIN)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model KategoriUMKM {
+  id        String   @id @default(cuid())
+  nama      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  umkm      UMKM[]   @relation("UMKMKategori")
+}
+
+model UMKM {
+  id             String         @id @default(cuid())
+  namaUmkm       String
+  deskripsi      String?
+  alamatFisik    String?
+  urlGoogleMaps  String?
+  kontakWhatsapp String?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  kategori       KategoriUMKM[] @relation("UMKMKategori")
+  gambar         GambarUMKM[]
+}
+
+model GambarUMKM {
+  id        String   @id @default(cuid())
+  url       String
+  umkmId    String
+  umkm      UMKM     @relation(fields: [umkmId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+}
