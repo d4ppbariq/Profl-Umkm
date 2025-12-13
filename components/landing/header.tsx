@@ -1,10 +1,15 @@
-import Link from "next/link"
+"use client"
+
+import * as React from "react"
+import { Menu, X } from "lucide-react"
 
 export function Header() {
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false)
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/60">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center gap-2">
+        <a href="/" className="flex items-center gap-2">
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
             <svg className="h-5 w-5 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
@@ -16,20 +21,49 @@ export function Header() {
             </svg>
           </div>
           <span className="text-lg font-semibold text-foreground">UMKM Desa Cikupa</span>
-        </Link>
+        </a>
 
-        <nav className="flex items-center gap-6">
-          <Link href="/umkm" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center gap-6">
+          <a href="/" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
+            Beranda
+          </a>
+          <a href="/umkm" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
             Katalog UMKM
-          </Link>
-          <Link
-            href="/login"
-            className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-accent"
-          >
-            Masuk Admin
-          </Link>
+          </a>
         </nav>
+
+        {/* Mobile Menu Button */}
+        <button
+          className="flex items-center justify-center p-2 text-muted-foreground transition-colors hover:text-foreground md:hidden"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label="Toggle menu"
+        >
+          {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+        </button>
       </div>
+
+      {/* Mobile Menu Dropdown */}
+      {isMenuOpen && (
+        <div className="border-b border-border bg-card px-4 py-4 md:hidden">
+          <nav className="flex flex-col space-y-4">
+            <a
+              href="/"
+              className="text-base font-medium text-muted-foreground transition-colors hover:text-primary"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Beranda
+            </a>
+            <a
+              href="/umkm"
+              className="text-base font-medium text-muted-foreground transition-colors hover:text-primary"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Katalog UMKM
+            </a>
+          </nav>
+        </div>
+      )}
     </header>
   )
 }

@@ -29,7 +29,12 @@ interface Admin {
 }
 
 export default function AdminPenggunaPage() {
-  const { data: admins, mutate, isLoading } = useSWR<Admin[]>("/api/admin", fetcher)
+  // Menggunakan nama rawAdmins untuk menampung data mentah dari API
+  // Bisa berupa array Admin[] atau object error
+  const { data: rawAdmins, mutate, isLoading } = useSWR<Admin[] | { error: string }>("/api/admin", fetcher)
+  
+  // Pastikan admins selalu berupa array
+  const admins = Array.isArray(rawAdmins) ? rawAdmins : []
 
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [editingAdmin, setEditingAdmin] = useState<Admin | null>(null)
@@ -123,14 +128,14 @@ export default function AdminPenggunaPage() {
                     </td>
                   </tr>
                 ))
-              ) : admins?.length === 0 ? (
+              ) : admins.length === 0 ? (
                 <tr>
                   <td colSpan={4} className="px-6 py-12 text-center text-muted-foreground">
-                    Belum ada admin
+                    Belum ada admin atau Anda tidak memiliki akses
                   </td>
                 </tr>
               ) : (
-                admins?.map((admin) => (
+                admins.map((admin) => (
                   <tr key={admin.id} className="border-b border-border last:border-0">
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">

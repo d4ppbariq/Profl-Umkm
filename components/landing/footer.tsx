@@ -1,5 +1,3 @@
-import Link from "next/link"
-
 export function Footer() {
   return (
     <footer className="border-t border-border bg-card">
@@ -28,19 +26,14 @@ export function Footer() {
             <h3 className="mb-4 text-sm font-semibold text-foreground">Navigasi</h3>
             <ul className="space-y-3 text-sm">
               <li>
-                <Link href="/" className="text-muted-foreground transition-colors hover:text-primary">
+                <a href="/" className="text-muted-foreground transition-colors hover:text-primary">
                   Beranda
-                </Link>
+                </a>
               </li>
               <li>
-                <Link href="/umkm" className="text-muted-foreground transition-colors hover:text-primary">
+                <a href="/umkm" className="text-muted-foreground transition-colors hover:text-primary">
                   Katalog UMKM
-                </Link>
-              </li>
-              <li>
-                <Link href="/login" className="text-muted-foreground transition-colors hover:text-primary">
-                  Login Admin
-                </Link>
+                </a>
               </li>
             </ul>
           </div>
