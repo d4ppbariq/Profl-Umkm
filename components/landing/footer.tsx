@@ -1,61 +1,95 @@
+import Link from "next/link"
+import { Phone, MapPin, Mail, Globe } from "lucide-react"
+
 export function Footer() {
   return (
     <footer className="border-t border-border bg-card">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid gap-8 md:grid-cols-3">
-          <div>
-            <div className="flex items-center gap-2">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
-                <svg className="h-5 w-5 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-                  />
-                </svg>
+        <div className="grid gap-12 lg:grid-cols-4">
+          {/* Kolom 1: Brand & Deskripsi */}
+          <div className="space-y-4 lg:col-span-1">
+            <Link href="/" className="flex items-center gap-2">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-sm">
+                <Globe className="h-6 w-6" />
               </div>
-              <span className="text-lg font-semibold text-foreground">UMKM Desa Cikupa</span>
-            </div>
-            <p className="mt-4 text-sm text-muted-foreground">
-              Platform profil dan promosi UMKM Desa Cikupa, Kecamatan Karangnunggal, Kabupaten Tasikmalaya.
+              <span className="text-xl font-bold tracking-tight text-foreground">UMKM Desa Cikupa</span>
+            </Link>
+            <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">
+              Wadah digital untuk mempromosikan potensi dan produk unggulan UMKM Desa Cikupa, Karangnunggal, Tasikmalaya.
             </p>
           </div>
 
-          <div>
-            <h3 className="mb-4 text-sm font-semibold text-foreground">Navigasi</h3>
-            <ul className="space-y-3 text-sm">
-              <li>
-                <a href="/" className="text-muted-foreground transition-colors hover:text-primary">
-                  Beranda
-                </a>
-              </li>
-              <li>
-                <a href="/umkm" className="text-muted-foreground transition-colors hover:text-primary">
-                  Katalog UMKM
-                </a>
-              </li>
+          {/* Kolom 2: Navigasi Cepat */}
+          <div className="lg:col-span-1">
+            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-foreground">Menu Utama</h3>
+            <ul className="space-y-3">
+              <FooterLink href="/">Beranda</FooterLink>
+              <FooterLink href="/umkm">Katalog UMKM</FooterLink>
             </ul>
           </div>
 
-          <div>
-            <h3 className="mb-4 text-sm font-semibold text-foreground">Lokasi</h3>
-            <address className="text-sm not-italic text-muted-foreground">
-              Desa Cikupa
-              <br />
-              Kecamatan Karangnunggal
-              <br />
-              Kabupaten Tasikmalaya
-              <br />
-              Jawa Barat, Indonesia
-            </address>
+          {/* Kolom 3 & 4: Kontak & Alamat (Digabung di mobile, pisah di desktop) */}
+          <div className="space-y-4 lg:col-span-2">
+            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-foreground">Hubungi Kami</h3>
+            <div className="grid gap-6 sm:grid-cols-2">
+              {/* Alamat */}
+              <div className="flex gap-3">
+                <MapPin className="h-5 w-5 shrink-0 text-primary" />
+                <div className="space-y-1">
+                  <p className="text-sm font-medium text-foreground">Kantor Desa Cikupa</p>
+                  <p className="text-sm leading-relaxed text-muted-foreground">
+                    Jl. Raya Karangnunggal No. 123<br />
+                    Kecamatan Karangnunggal<br />
+                    Kabupaten Tasikmalaya 46186<br />
+                    Jawa Barat, Indonesia
+                  </p>
+                </div>
+              </div>
+
+              {/* Kontak Digital */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-3">
+                  <Mail className="h-5 w-5 shrink-0 text-primary" />
+                  <a href="mailto:info@desacikupa.id" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                    info@desacikupa.id
+                  </a>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Phone className="h-5 w-5 shrink-0 text-primary" />
+                  <a href="tel:+6281234567890" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                    +62 812-3456-7890
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="mt-8 border-t border-border pt-8 text-center text-sm text-muted-foreground">
-          &copy; {new Date().getFullYear()} UMKM Desa Cikupa. Hak Cipta Dilindungi.
+        {/* Copyright Section */}
+        <div className="mt-12 border-t border-border pt-8">
+          <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
+            <p className="text-center text-sm text-muted-foreground sm:text-left">
+              &copy; {new Date().getFullYear()} UMKM Desa Cikupa. Hak Cipta Dilindungi.
+            </p>
+            <p className="text-center text-sm text-muted-foreground sm:text-right flex items-center gap-1">
+              Dibuat dengan <span className="text-red-500">♥</span> untuk kemajuan desa
+            </p>
+          </div>
         </div>
       </div>
     </footer>
+  )
+}
+
+function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <li>
+      <Link 
+        href={href} 
+        className="text-sm text-muted-foreground transition-colors hover:text-primary hover:underline underline-offset-4"
+      >
+        {children}
+      </Link>
+    </li>
   )
 }

@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { AdminSidebar } from "@/components/admin/sidebar"
+import { AdminSidebar } from "./sidebar"
 import { cn } from "@/lib/utils"
 import { Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -40,19 +40,9 @@ export function AdminLayoutWrapper({ children, user }: AdminLayoutWrapperProps) 
 
   return (
     <div className="min-h-screen bg-muted/30">
-      {/* Global Header: Hanya Tampil di Mobile (md:hidden) 
-          Ini menghapus header putih "Admin Panel" di desktop */}
-      <div className="sticky top-0 z-50 flex h-16 items-center border-b border-border bg-card px-4 shadow-sm md:hidden">
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-          className="-ml-2 mr-2" 
-        >
-          <Menu className="h-6 w-6" />
-        </Button>
-        <span className="font-semibold text-lg">Admin Panel</span>
-      </div>
+      {/* Header putih (sticky navbar) telah dihapus sesuai permintaan.
+          Tombol menu sekarang dipindahkan ke dalam area konten utama.
+      */}
 
       <AdminSidebar 
         user={user} 
@@ -60,8 +50,7 @@ export function AdminLayoutWrapper({ children, user }: AdminLayoutWrapperProps) 
         toggle={() => setIsSidebarOpen(!isSidebarOpen)}
         isMobile={isMobile}
         onClose={() => setIsSidebarOpen(false)}
-        // Hapus padding-top di desktop karena navbar atas hilang, tapi tetap ada di mobile
-        className={cn("transition-all", isMobile ? "pt-16" : "pt-0")}
+        className="transition-all pt-0" // Reset padding karena header dihapus
       />
       
       {/* Mobile Overlay */}
@@ -77,11 +66,26 @@ export function AdminLayoutWrapper({ children, user }: AdminLayoutWrapperProps) 
           "transition-[padding] duration-300 ease-in-out",
           // Desktop: Padding kiri 64 (lebar sidebar)
           "md:pl-64",
-          // Mobile: Padding 0 (sidebar overlay)
+          // Mobile: Padding 0
           "pl-0"
         )}
       >
-        <main className="p-4 md:p-8">{children}</main>
+        <main className="p-4 md:p-8">
+          {/* Tombol Toggle Menu Khusus Mobile */}
+          <div className="mb-4 md:hidden">
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+              className="bg-card shadow-sm border-border h-10 w-10"
+              aria-label="Buka Menu"
+            >
+              <Menu className="h-5 w-5 text-foreground" />
+            </Button>
+          </div>
+          
+          {children}
+        </main>
       </div>
     </div>
   )
